@@ -18,8 +18,7 @@ Matches.init({
     type: INTEGER,
     allowNull: false,
   },
-
-  : {
+  homeTeamId: {
     field: 'home_team_id',
     type: INTEGER,
     allowNull: false,
@@ -28,23 +27,20 @@ Matches.init({
       key: 'id',
     },
   },
-
   homeTeamGoals: {
     field: 'home_team_goals',
     type: INTEGER,
     allowNull: false,
   },
-
   awayTeamId: {
     field: 'away_team_id',
     type: INTEGER,
     allowNull: false,
     references: {
       model: 'teams',
-      key: 'id',homeTeamId
+      key: 'id',
     },
   },
-
   awayTeamGoals: {
     field: 'away_team_goals',
     type: INTEGER,
@@ -55,7 +51,6 @@ Matches.init({
     type: BOOLEAN,
     allowNull: false,
   },
-
 }, {
   // ... Outras configs
   modelName: 'matches',
