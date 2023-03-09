@@ -10,31 +10,31 @@ module.exports = {
 
       homeTeamId: {
         field: 'home_team_id',
-        type: INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
     
       homeTeamGoals: {
         field: 'home_team_goals',
-        type: INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
     
       awayTeamId: {
         field: 'away_team_id',
-        type: INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
     
       awayTeamGoals: {
         field: 'away_team_goals',
-        type: INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
 
       inProgress: {
         field: 'in_progress',
-        type: BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
     });
