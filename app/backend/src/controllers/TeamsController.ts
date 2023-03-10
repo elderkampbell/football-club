@@ -9,10 +9,16 @@ export default class TeamsController {
     const result = await this._service.getAll();
     return res.status(200).json(result);
   };
-}
 
-// if (!result) {
-//   return res.status(404).json({
-//     message: 'Team not found',
-//   }
-// }
+  getById = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const result = await this._service.getById(id);
+
+    if (!result) {
+      return res.status(404).json({
+        message: 'Team not found',
+      });
+    }
+    return res.status(200).json(result);
+  };
+}
