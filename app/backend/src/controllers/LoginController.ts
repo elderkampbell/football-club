@@ -14,10 +14,20 @@ export default class LoginController {
     if (result) {
       const comparePassword = await compare(password, result.password);
       if (comparePassword) {
-        const token = TokenGenerator.tokenGenerator({ email, password });
+        const token = TokenGenerator.tokenGenerator(email);
         return res.status(200).json({ token });
       }
     }
     return res.status(401).json({ message: 'Invalid email or password' });
+  };
+
+  userRole = async (req: Request, res: Response) => {
+    const { jwt } = req.body;
+    console.log(jwt);
+    const result = await this._service.LoginValidation(jwt.data);
+    if (result) {
+      const { role } = result;
+      return res.status(200).json({ role });
+    }
   };
 }

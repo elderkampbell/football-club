@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 
 export default function emailValidation(req: Request, res: Response, next: NextFunction) {
   const { email } = req.body;
-  console.log(email);
   if (!email) {
     return res.status(400).json({ message: 'All fields must be filled' });
   }
