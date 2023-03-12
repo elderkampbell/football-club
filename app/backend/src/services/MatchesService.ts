@@ -34,6 +34,7 @@ export default class MatchesService implements IMatchService {
       awayTeamId,
       awayTeamGoals,
       inProgress: true });
+    console.log(match);
     return match;
   }
 }
