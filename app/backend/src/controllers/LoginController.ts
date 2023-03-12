@@ -10,10 +10,6 @@ export default class LoginController {
   LoginValidation = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ message: 'All fields must be filled' });
-    }
-
     const result = await this._service.LoginValidation(email);
     if (result) {
       const comparePassword = await compare(password, result.password);
@@ -22,6 +18,6 @@ export default class LoginController {
         return res.status(200).json({ token });
       }
     }
-    return res.status(404).json('NOT FOUND');
+    return res.status(401).json({ message: 'Invalid email or password' });
   };
 }
