@@ -15,4 +15,11 @@ export default class TeamsController {
 
     return res.status(200).json(result);
   };
+
+  finishMatch = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const idNumber = Number(id);
+    await this._service.finishMatch(idNumber);
+    return res.status(200).json({ message: 'Finished' });
+  };
 }
