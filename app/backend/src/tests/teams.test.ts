@@ -2,44 +2,55 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
-
+const { expect } = chai;
+import TeamsModel from '../database/models/TeamsModel';
+import { Model } from 'sequelize';
+import TeamsService from '../services/TeamsService';
 import { app } from '../app';
-import example from '../database/models/ExampleModel';
-
-import { Response } from 'superagent';
 
 chai.use(chaiHttp);
 
-const { expect } = chai;
+const mock: TeamsModel[] = [new TeamsModel({
+  id: 1,
+  teamName: 'Vasco da Gama'
+})];
 
-describe('Seu teste', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
 
-  // let chaiHttpResponse: Response;
+describe('FindAll Teams tests', () => {
+  
+  beforeEach(async () => {
+    sinon
+      .stub(Model, "findAll")
+      .resolves(
+        mock
+      );
+  });
 
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
+  afterEach(()=>{
+    (TeamsModel.findAll as sinon.SinonStub).restore();
+  })
 
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
 
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
+  it('findAll Teams test', async () => {
+    const chaiHttpResponse = await chai
+       .request(app)
+        .get('/teams')
+        expect(chaiHttpResponse.status).to.be.equal(200)
+        expect(chaiHttpResponse.body[0]).to.include({
+          id: 1,
+          teamName: 'Vasco da Gama'
+        })
+  });
 
-  //   expect(...)
-  // });
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+  it('findById Teams test', async () => {
+    const chaiHttpResponse = await chai
+       .request(app)
+        .get('/teams/1')
+        expect(chaiHttpResponse.status).to.be.equal(200)
+        expect(chaiHttpResponse.body[0]).to.include({
+          id: 1,
+          teamName: 'Vasco da Gama'
+        })
   });
 });
